@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments - Saksham Portal</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional styles specific to assignments page */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--card-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--divider-color);
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        
+        .filter-item:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .filter-item.active {
+            background-color: var(--primary-light);
+            border-color: var(--primary-color);
+            color: var(--primary-dark);
+        }
+        
+        .filter-item i {
+            margin-right: 8px;
+        }
+        
+        .assignments-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .assignment-card {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .assignment-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .assignment-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .assignment-details {
+            flex: 1;
+        }
+        
+        .assignment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .assignment-course {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .assignment-due {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .assignment-due i {
+            margin-right: 5px;
+            color: var(--text-secondary);
+        }
+        
+        .assignment-due.urgent {
+            color: var(--danger-color);
+        }
+        
+        .assignment-due.upcoming {
+            color: var(--warning-color);
+        }
+        
+        .assignment-due.far {
+            color: var(--success-color);
+        }
+        
+        .assignment-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        
+        .assignment-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .assignment-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .assignment-type {
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+        }
+        
+        .assignment-type i {
+            margin-right: 5px;
+        }
+        
+        .assignment-status {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .assignment-status.not-started {
+            background-color: var(--background-color);
+            color: var(--text-secondary);
+        }
+        
+        .assignment-status.in-progress {
+            background-color: var(--info-color);
+            color: white;
+        }
+        
+        .assignment-status.submitted {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .assignment-status.late {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .assignment-status.missed {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .assignment-status.graded {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Teacher view specific styles */
+        .teacher-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .add-assignment-btn {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .add-assignment-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .add-assignment-btn i {
+            margin-right: 8px;
+        }
+        
+        .bulk-action-btn {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            border-radius: 5px;
+            border: 1px solid var(--divider-color);
+            cursor: pointer;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .bulk-action-btn:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .bulk-action-btn i {
+            margin-right: 8px;
+        }
+        
+        .teacher-assignment-card {
+            position: relative;
+        }
+        
+        .assignment-metrics {
+            display: flex;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--divider-color);
+        }
+        
+        .assignment-metric {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
+        }
+        
+        .metric-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+        
+        .action-btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            cursor: pointer;
+            background-color: var(--background-color);
+            border: 1px solid var(--divider-color);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        
+        .action-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .action-btn.edit {
+            color: var(--info-color);
+        }
+        
+        .action-btn.grade {
+            color: var(--success-color);
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="portal-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">Saksham</h1>
+                <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="role-selector">
+                <label class="switch">
+                    <input type="checkbox" id="roleToggle">
+                    <span class="slider round"></span>
+                </label>
+                <span class="role-label" id="roleLabel">Student View</span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+                    <li><a href="assignments.html" class="active"><i class="fas fa-tasks"></i> Assignments</a></li>
+                    <li><a href="grades.html"><i class="fas fa-chart-bar"></i> Grades</a></li>
+                    <li><a href="calendar.html"><i class="fas fa-calendar"></i> Calendar</a></li>
+                    <li><a href="resources.html"><i class="fas fa-folder"></i> Resources</a></li>
+                    <li><a href="messages.html"><i class="fas fa-envelope"></i> Messages</a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Search assignments...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="user-menu">
+                    <div class="notifications">
+                        <button><i class="fas fa-bell"></i><span class="badge">3</span></button>
+                    </div>
+                    
+                    <div class="user-profile" id="userProfileMenu">
+                        <img src="../assets/images/default-avatar.png" alt="User Avatar">
+                        <span>Jane Doe</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    
+                    <div class="dropdown-menu" id="userDropdown">
+                        <ul>
+                            <li><a href="profile.html"><i class="fas fa-user"></i> View Profile</a></li>
+                            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Assignments Content -->
+            <div class="dashboard-content">
+                <!-- Student View -->
+                <div class="student-assignments-view" id="studentAssignmentsView">
+                    <div class="page-header">
+                        <h1>My Assignments</h1>
+                        <p>Track and manage all your course assignments.</p>
+                    </div>
+                    
+                    <div class="filters">
+                        <div class="filter-item active">
+                            <i class="fas fa-list"></i> All
+                        </div>
+                        <div class="filter-item">
+                            <i class="fas fa-exclamation-circle"></i> Urgent
+                        </div>
+                        <div class="filter-item">
+                            <i class="fas fa-clock"></i> Upcoming
+                        </div>
+                        <div class="filter-item">
+                            <i class="fas fa-spinner"></i> In Progress
+                        </div>
+                        <div class="filter-item">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </div>
+                        <div class="filter-item">
+                            <i class="fas fa-star"></i> Graded
+                        </div>
+                    </div>
+                    
+                    <div class="assignments-container">
+                        <!-- Assignment 1 -->
+                        <div class="assignment-card" onclick="window.location.href='assignment-detail.html?id=1'">
+                            <div class="assignment-icon" style="background-color: #4CAF50;">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="assignment-details">
+                                <div class="assignment-meta">
+                                    <div class="assignment-course">Calculus II</div>
+                                    <div class="assignment-due urgent">
+                                        <i class="fas fa-clock"></i> Due Tomorrow, 11:59 PM
+                                    </div>
+                                </div>
+                                <h3 class="assignment-title">Mathematics Project</h3>
+                                <p class="assignment-desc">Complete the calculus project involving derivative applications in real-world scenarios. Include all working steps and graphical representations.</p>
+                                <div class="assignment-footer">
+                                    <div class="assignment-type">
+                                        <i class="fas fa-file-alt"></i> Project
+                                    </div>
+                                    <div class="assignment-status in-progress">In Progress</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Assignment 2 -->
+                        <div class="assignment-card" onclick="window.location.href='assignment-detail.html?id=2'">
+                            <div class="assignment-icon" style="background-color: #2196F3;">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="assignment-details">
+                                <div class="assignment-meta">
+                                    <div class="assignment-course">English Literature</div>
+                                    <div class="assignment-due upcoming">
+                                        <i class="fas fa-clock"></i> Due in 3 days
+                                    </div>
+                                </div>
+                                <h3 class="assignment-title">Literature Analysis Essay</h3>
+                                <p class="assignment-desc">Write a 1500-word analytical essay on the themes and symbols in Shakespeare's Macbeth. Focus on character development and literary devices.</p>
+                                <div class="assignment-footer">
+                                    <div class="assignment-type">
+                                        <i class="fas fa-edit"></i> Essay
+                                    </div>
+                                    <div class="assignment-status not-started">Not Started</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Assignment 3 -->
+                        <div class="assignment-card" onclick="window.location.href='assignment-detail.html?id=3'">
+                            <div class="assignment-icon" style="background-color: #FF9800;">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <div class="assignment-details">
+                                <div class="assignment-meta">
+                                    <div class="assignment-course">Physics 101</div>
+                                    <div class="assignment-due upcoming">
+                                        <i class="fas fa-clock"></i> Due in 5 days
+                                    </div>
+                                </div>
+                                <h3 class="assignment-title">Physics Lab Report</h3>
+                                <p class="assignment-desc">Complete a lab report on the projectile motion experiment. Include data tables, calculations, error analysis, and conclusions.</p>
+                                <div class="assignment-footer">
+                                    <div class="assignment-type">
+                                        <i class="fas fa-vial"></i> Lab Report
+                                    </div>
+                                    <div class="assignment-status not-started">Not Started</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Assignment 4 -->
+                        <div class="assignment-card" onclick="window.location.href='assignment-detail.html?id=4'">
+                            <div class="assignment-icon" style="background-color: #9C27B0;">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="assignment-details">
+                                <div class="assignment-meta">
+                                    <div class="assignment-course">Business Management</div>
+                                    <div class="assignment-due far">
+                                        <i class="fas fa-clock"></i> Due in 1 week
+                                    </div>
+                                </div>
+                                <h3 class="assignment-title">Group Presentation</h3>
+                                <p class="assignment-desc">Prepare a 15-minute group presentation on a startup business plan. Include market analysis, financial projections, and marketing strategy.</p>
+                                <div class="assignment-footer">
+                                    <div class="assignment-type">
+                                        <i class="fas fa-presentation"></i> Group Project
+                                    </div>
+                                    <div class="assignment-status in-progress">In Progress</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Assignment 5 -->
+                        <div class="assignment-card" onclick="window.location.href='assignment-detail.html?id=5'">
+                            <div class="assignment-icon" style="background-color: #607D8B;">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="assignment-details">
+                                <div class="assignment-meta">
+                                    <div class="assignment-course">Computer Science 101</div>
+                                    <div class="assignment-due">
+                                        <i class="fas fa-check"></i> Graded
+                                    </div>
+                                </div>
+                                <h3 class="assignment-title">Programming Assignment</h3>
+                                <p class="assignment-desc">Implement a simple data structure and algorithm to solve the given problem. Include documentation and test cases.</p>
+                                <div class="assignment-footer">
+                                    <div class="assignment-type">
+                                        <i class="fas fa-laptop-code"></i> Programming
+                                    </div>
+                                    <div class="assignment-status graded">95/100</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Assignment 6 -->
+                        <div class="assignment-card" onclick="window.location.href='assignment-detail.html?id=6'">
+                            <div class="assignment-icon" style="background-color: #F44336;">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="assignment-details">
+                                <div class="assignment-meta">
+                                    <div class="assignment-course">Introduction to Psychology</div>
+                                    <div class="assignment-due">
+                                        <i class="fas fa-clock"></i> Overdue by 2 days
+                                    </div>
+                                </div>
+                                <h3 class="assignment-title">Case Study Analysis</h3>
+                                <p class="assignment-desc">Analyze the provided psychological case study. Identify key behavioral patterns, apply relevant theories, and suggest possible interventions.</p>
+                                <div class="assignment-footer">
+                                    <div class="assignment-type">
+                                        <i class="fas fa-file-medical-alt"></i> Case Study
+                                    </div>
+                                    <div class="assignment-status late">Late Submission</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Teacher View (initially hidden) -->
+                <div class="teacher-assignments-view hidden" id="teacherAssignmentsView">
+                    <div class="page-header">
+                        <h1>Assignments Management</h1>
+                        <p>Create, manage, and grade assignments for your courses.</p>
+                    </div>
+                    
+                    <div class="teacher-controls">
+                        <button class="add-assignment-btn">
+                            <i class="fas fa-plus"></i> Create Assignment
+                        </button>
+                        <button class="bulk-action-btn">
+                            <i class="fas fa-cog"></i> Bulk Actions
+                        </button>
+                    </div>
+                    
+                    <div class="filters">
+                        <div class="filter-item active">
+                            <i class="fas fa-list"></i> All Assignments
+                        </div>
+                        <div class="filter-item">
+                            <i class="fas fa-clock"></i> Active
+                        </div>
+                        <div class="filter-item">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </div>
+                        <div class="filter-item">
+                            <i class="fas fa-edit"></i> Needs Grading
+                        </div>
+                        <div class="filter-item">
+                            <i class="fas fa-archive"></i> Archived
+                        </div>
+                    </div>
+                    
+                    <div class="assignments-container">
+                        <!-- Teacher Assignment 1 -->
+                        <div class="assignment-card teacher-assignment-card">
+                            <div class="assignment-icon" style="background-color: #4CAF50;">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="assignment-details">
+                                <div class="assignment-meta">
+                                    <div class="assignment-course">Advanced Mathematics (3rd Year)</div>
+                                    <div class="assignment-due">
+                                        <i class="fas fa-calendar"></i> Due May 10, 2025
+                                    </div>
+                                </div>
+                                <h3 class="assignment-title">Final Term Project</h3>
+                                <p class="assignment-desc">Comprehensive project covering advanced calculus concepts including multivariable calculus, differential equations, and vector calculus applications.</p>
+                                <div class="assignment-metrics">
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">32</div>
+                                        <div class="metric-label">Total Students</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">18</div>
+                                        <div class="metric-label">Submitted</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">12</div>
+                                        <div class="metric-label">Graded</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">6</div>
+                                        <div class="metric-label">Pending</div>
+                                    </div>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit">Edit</button>
+                                        <button class="action-btn grade">Grade</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Teacher Assignment 2 -->
+                        <div class="assignment-card teacher-assignment-card">
+                            <div class="assignment-icon" style="background-color: #2196F3;">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="assignment-details">
+                                <div class="assignment-meta">
+                                    <div class="assignment-course">Computer Science 101 (1st Year)</div>
+                                    <div class="assignment-due">
+                                        <i class="fas fa-calendar"></i> Due May 5, 2025
+                                    </div>
+                                </div>
+                                <h3 class="assignment-title">Introduction to Algorithms</h3>
+                                <p class="assignment-desc">Implement basic algorithms including sorting, searching, and graph traversal. Write a report analyzing time and space complexity.</p>
+                                <div class="assignment-metrics">
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">45</div>
+                                        <div class="metric-label">Total Students</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">38</div>
+                                        <div class="metric-label">Submitted</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">31</div>
+                                        <div class="metric-label">Graded</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">7</div>
+                                        <div class="metric-label">Pending</div>
+                                    </div>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit">Edit</button>
+                                        <button class="action-btn grade">Grade</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Teacher Assignment 3 -->
+                        <div class="assignment-card teacher-assignment-card">
+                            <div class="assignment-icon" style="background-color: #FF9800;">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <div class="assignment-details">
+                                <div class="assignment-meta">
+                                    <div class="assignment-course">Data Structures (2nd Year)</div>
+                                    <div class="assignment-due">
+                                        <i class="fas fa-calendar"></i> Due May 15, 2025
+                                    </div>
+                                </div>
+                                <h3 class="assignment-title">Tree and Graph Implementation</h3>
+                                <p class="assignment-desc">Implement binary search trees, AVL trees, and graph data structures. Create a practical application demonstrating their use.</p>
+                                <div class="assignment-metrics">
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">28</div>
+                                        <div class="metric-label">Total Students</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">22</div>
+                                        <div class="metric-label">Submitted</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">16</div>
+                                        <div class="metric-label">Graded</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">6</div>
+                                        <div class="metric-label">Pending</div>
+                                    </div>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit">Edit</button>
+                                        <button class="action-btn grade">Grade</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Teacher Assignment 4 -->
+                        <div class="assignment-card teacher-assignment-card">
+                            <div class="assignment-icon" style="background-color: #9C27B0;">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="assignment-details">
+                                <div class="assignment-meta">
+                                    <div class="assignment-course">Algorithm Design (3rd Year)</div>
+                                    <div class="assignment-due">
+                                        <i class="fas fa-calendar"></i> Due May 20, 2025
+                                    </div>
+                                </div>
+                                <h3 class="assignment-title">Advanced Algorithm Analysis</h3>
+                                <p class="assignment-desc">Design and analyze algorithms for NP-hard problems. Implement approximation algorithms and heuristics to solve them efficiently.</p>
+                                <div class="assignment-metrics">
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">23</div>
+                                        <div class="metric-label">Total Students</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">18</div>
+                                        <div class="metric-label">Submitted</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">13</div>
+                                        <div class="metric-label">Graded</div>
+                                    </div>
+                                    <div class="assignment-metric">
+                                        <div class="metric-value">5</div>
+                                        <div class="metric-label">Pending</div>
+                                    </div>
+                                    <div class="action-buttons">
+                                        <button class="action-btn edit">Edit</button>
+                                        <button class="action-btn grade">Grade</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Default Avatar Image Script -->
+    <script>
+        // Create a default avatar if image is not available
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatar = document.querySelector('.user-profile img');
+            avatar.onerror = function() {
+                this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij48Y2lyY2xlIGN4PSIxMjgiIGN5PSIxMjgiIHI9IjEyMCIgZmlsbD0iI2U5ZWNlZiIvPjxjaXJjbGUgY3g9IjEyOCIgY3k9IjExMCIgcj0iNDAiIGZpbGw9IiNhYWIyYmQiLz48cGF0aCBkPSJNMjEzLjIsMjA4LjdjLTguNCwyMC0yOS45LDM4LTg1LjIsMzgtNTUuMywwLTc2LjgtMTgtODUuMi0zOHM4LjktNDkuNyw4NS4yLTQ5LjdDMjA0LjMsMTU5LDIyMS42LDE4OC43LDIxMy4yLDIwOC43WiIgZmlsbD0iI2FhYjJiZCIvPjwvc3ZnPg==';
+            };
+        });
+    </script>
+
+    <!-- JavaScript for page functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Role toggle functionality
+            const roleToggle = document.getElementById('roleToggle');
+            const roleLabel = document.getElementById('roleLabel');
+            const studentView = document.getElementById('studentAssignmentsView');
+            const teacherView = document.getElementById('teacherAssignmentsView');
+            
+            roleToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    // Switch to teacher view
+                    roleLabel.textContent = 'Teacher View';
+                    studentView.classList.add('hidden');
+                    teacherView.classList.remove('hidden');
+                } else {
+                    // Switch to student view
+                    roleLabel.textContent = 'Student View';
+                    studentView.classList.remove('hidden');
+                    teacherView.classList.add('hidden');
+                }
+            });
+            
+            // Filter functionality
+            const filterItems = document.querySelectorAll('.filter-item');
+            filterItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Get all filter items in the same container
+                    const parentFilters = this.parentElement.querySelectorAll('.filter-item');
+                    
+                    // Remove active class from all filters
+                    parentFilters.forEach(filter => {
+                        filter.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked filter
+                    this.classList.add('active');
+                    
+                    // In a real application, this would filter the assignments
+                    // For now, we'll just log the selected filter
+                    console.log('Selected filter:', this.textContent.trim());
+                });
+            });
+            
+            // User menu dropdown functionality
+            const userProfile = document.getElementById('userProfileMenu');
+            const dropdown = document.getElementById('userDropdown');
+            
+            userProfile.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function() {
+                if (dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
+                }
+            });
+            
+            // Mobile sidebar functionality
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const closeSidebar = document.getElementById('closeSidebar');
+            
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.add('active');
+            });
+            
+            closeSidebar.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+            });
+            
+            // Teacher controls functionality - would be implemented for a full application
+            const addAssignmentBtn = document.querySelector('.add-assignment-btn');
+            if (addAssignmentBtn) {
+                addAssignmentBtn.addEventListener('click', function() {
+                    console.log('Create new assignment clicked');
+                    // This would open a new assignment creation form in a real application
+                });
+            }
+            
+            const editButtons = document.querySelectorAll('.action-btn.edit');
+            editButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    console.log('Edit assignment clicked');
+                    // This would open an assignment editing form in a real application
+                });
+            });
+            
+            const gradeButtons = document.querySelectorAll('.action-btn.grade');
+            gradeButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    console.log('Grade assignment clicked');
+                    // This would open grading interface in a real application
+                });
+            });
+        });
+    </script>
+</body>
+</html>
