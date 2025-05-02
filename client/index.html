@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Saksham Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="/src/css/styles.css">
+  </head>
+  <body class="bg-slate-50">
+    <div class="min-h-screen flex flex-col" id="app">
+      <!-- Top Navigation Bar -->
+      <header class="header">
+        <div class="header-container">
+          <div class="flex-between">
+            <div class="header-logo">
+              <div class="logo-container">
+                <img class="logo-img" src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Saksham Logo">
+                <span class="logo-text">Saksham Portal</span>
+              </div>
+            </div>
+            <div class="user-menu-container">
+              <button id="userMenuButton" class="user-menu-button">
+                <span class="user-name">John Doe</span>
+                <img class="user-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User avatar">
+                <span class="icon-dropdown"><i class="fas fa-chevron-down"></i></span>
+              </button>
+
+              <div id="userMenu" class="user-dropdown hidden">
+                <div class="dropdown-menu">
+                  <div class="dropdown-items">
+                    <a href="#" class="dropdown-item" data-view="profile">Your Profile</a>
+                    <a href="#" class="dropdown-item" data-view="settings">Settings</a>
+                    <a href="#" class="dropdown-item" data-view="login">Sign out</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="main-content">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="sidebar">
+          <div class="sidebar-mobile-header">
+            <h2 class="mobile-nav-title">Navigation</h2>
+            <button id="closeSidebar" class="close-sidebar-btn">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <!-- User Role Toggle (Teacher/Student View) -->
+          <div class="role-toggle-container">
+            <label class="role-toggle-label">
+              <span class="role-text">Student</span>
+              <div class="toggle-switch">
+                <input type="checkbox" id="role-toggle" class="toggle-input">
+                <div class="toggle-slider"></div>
+                <div class="toggle-circle"></div>
+              </div>
+              <span class="role-text">Teacher</span>
+            </label>
+          </div>
+          
+          <!-- Dashboard Links -->
+          <nav class="sidebar-nav">
+            <div class="nav-sections">
+              <!-- Student Navigation -->
+              <div id="student-nav">
+                <h3 class="nav-section-title">
+                  Student Dashboard
+                </h3>
+                <a href="#" class="nav-link sidebar-active" data-view="student-dashboard">
+                  <i class="fas fa-home nav-icon"></i>
+                  Dashboard
+                </a>
+                <a href="#" class="nav-link" data-view="courses">
+                  <i class="fas fa-book nav-icon"></i>
+                  My Courses
+                </a>
+                <a href="#" class="nav-link" data-view="assignments">
+                  <i class="fas fa-tasks nav-icon"></i>
+                  Assignments
+                </a>
+                <a href="#" class="nav-link" data-view="grades">
+                  <i class="fas fa-chart-bar nav-icon"></i>
+                  Grades
+                </a>
+                <a href="#" class="nav-link" data-view="calendar">
+                  <i class="fas fa-calendar nav-icon"></i>
+                  Calendar
+                </a>
+                <a href="#" class="nav-link" data-view="resources">
+                  <i class="fas fa-folder-open nav-icon"></i>
+                  Resources
+                </a>
+              </div>
+
+              <!-- Teacher Navigation (Hidden by Default) -->
+              <div id="teacher-nav" class="hidden">
+                <h3 class="nav-section-title">
+                  Teacher Dashboard
+                </h3>
+                <a href="#" class="nav-link" data-view="teacher-dashboard">
+                  <i class="fas fa-home nav-icon"></i>
+                  Dashboard
+                </a>
+                <a href="#" class="nav-link" data-view="manage-courses">
+                  <i class="fas fa-chalkboard nav-icon"></i>
+                  Manage Courses
+                </a>
+                <a href="#" class="nav-link" data-view="manage-assignments">
+                  <i class="fas fa-clipboard-list nav-icon"></i>
+                  Manage Assignments
+                </a>
+                <a href="#" class="nav-link" data-view="grade-submissions">
+                  <i class="fas fa-check-square nav-icon"></i>
+                  Grade Submissions
+                </a>
+                <a href="#" class="nav-link" data-view="student-reports">
+                  <i class="fas fa-chart-line nav-icon"></i>
+                  Student Reports
+                </a>
+                <a href="#" class="nav-link" data-view="announcements">
+                  <i class="fas fa-bullhorn nav-icon"></i>
+                  Announcements
+                </a>
+              </div>
+            </div>
+
+            <!-- Common Links -->
+            <div class="support-nav">
+              <h3 class="nav-section-title">
+                Support
+              </h3>
+              <a href="#" class="nav-link" data-view="help">
+                <i class="fas fa-question-circle nav-icon"></i>
+                Help Center
+              </a>
+              <a href="#" class="nav-link" data-view="tickets">
+                <i class="fas fa-ticket-alt nav-icon"></i>
+                Support Tickets
+              </a>
+            </div>
+          </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-container">
+          <div id="view-container">
+            <!-- Student Dashboard View (Default) -->
+            <div id="student-dashboard-view" class="view-content">
+              <!-- Page Header -->
+              <div class="page-header">
+                <div class="page-title-container">
+                  <h2 class="page-title">
+                    Student Dashboard
+                  </h2>
+                </div>
+                <div class="page-actions">
+                  <span class="action-button-container">
+                    <button type="button" class="btn btn-secondary">
+                      <i class="fas fa-calendar-plus action-icon"></i>
+                      Add to Calendar
+                    </button>
+                  </span>
+                  <span class="action-button-container">
+                    <button type="button" class="btn btn-primary">
+                      <i class="fas fa-bell action-icon"></i>
+                      Notifications
+                    </button>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Upcoming Deadlines Alert -->
+              <div class="alert alert-warning">
+                <div class="alert-content">
+                  <div class="alert-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </div>
+                  <div class="alert-message">
+                    <h3 class="alert-title">
+                      Upcoming Deadlines
+                    </h3>
+                    <div class="alert-text">
+                      <p>
+                        You have 3 assignments due this week. <a href="#" class="alert-link">View all deadlines</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dashboard Quick Stats -->
+              <div class="stats-grid">
+                <!-- Courses -->
+                <div class="stat-card">
+                  <div class="stat-card-body">
+                    <div class="stat-card-content">
+                      <div class="stat-icon-container bg-primary">
+                        <i class="fas fa-book icon-white"></i>
+                      </div>
+                      <div class="stat-details">
+                        <dl>
+                          <dt class="stat-label">
+                            Active Courses
+                          </dt>
+                          <dd>
+                            <div class="stat-value">
+                              5
+                            </div>
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-card-footer">
+                    <div class="stat-link-container">
+                      <a href="#" class="stat-link stat-link-primary" data-view="courses">
+                        View all courses
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Assignments -->
+                <div class="stat-card">
+                  <div class="stat-card-body">
+                    <div class="stat-card-content">
+                      <div class="stat-icon-container bg-secondary">
+                        <i class="fas fa-tasks icon-white"></i>
+                      </div>
+                      <div class="stat-details">
+                        <dl>
+                          <dt class="stat-label">
+                            Pending Assignments
+                          </dt>
+                          <dd>
+                            <div class="stat-value">
+                              7
+                            </div>
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-card-footer">
+                    <div class="stat-link-container">
+                      <a href="#" class="stat-link stat-link-secondary" data-view="assignments">
+                        View all assignments
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Grades -->
+                <div class="stat-card">
+                  <div class="stat-card-body">
+                    <div class="stat-card-content">
+                      <div class="stat-icon-container bg-success">
+                        <i class="fas fa-chart-bar icon-white"></i>
+                      </div>
+                      <div class="stat-details">
+                        <dl>
+                          <dt class="stat-label">
+                            Average Grade
+                          </dt>
+                          <dd>
+                            <div class="stat-value">
+                              86%
+                            </div>
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-card-footer">
+                    <div class="stat-link-container">
+                      <a href="#" class="stat-link stat-link-success" data-view="grades">
+                        View full grade report
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Announcements -->
+                <div class="stat-card">
+                  <div class="stat-card-body">
+                    <div class="stat-card-content">
+                      <div class="stat-icon-container bg-accent">
+                        <i class="fas fa-bullhorn icon-white"></i>
+                      </div>
+                      <div class="stat-details">
+                        <dl>
+                          <dt class="stat-label">
+                            New Announcements
+                          </dt>
+                          <dd>
+                            <div class="stat-value">
+                              3
+                            </div>
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-card-footer">
+                    <div class="stat-link-container">
+                      <a href="#" class="stat-link stat-link-accent">
+                        View all announcements
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recent Activity & Upcoming Assignments -->
+              <div class="content-grid">
+                <!-- Recent Activity -->
+                <div class="content-card">
+                  <div class="card-header">
+                    <h3 class="card-title">
+                      Recent Activity
+                    </h3>
+                  </div>
+                  <ul class="activity-list">
+                    <li class="activity-item">
+                      <div class="activity-content">
+                        <div class="activity-icon bg-primary">
+                          <i class="fas fa-file-alt icon-white"></i>
+                        </div>
+                        <div class="activity-details">
+                          <p class="activity-title">Assignment Submitted: Data Structures Quiz</p>
+                          <p class="activity-subtitle">CS301 - Data Structures and Algorithms</p>
+                        </div>
+                        <div class="activity-time">
+                          <span class="badge badge-success">
+                            2 hours ago
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="activity-item">
+                      <div class="activity-content">
+                        <div class="activity-icon bg-secondary">
+                          <i class="fas fa-comment-alt icon-white"></i>
+                        </div>
+                        <div class="activity-details">
+                          <p class="activity-title">New comment on your discussion post</p>
+                          <p class="activity-subtitle">ENG202 - Technical Writing</p>
+                        </div>
+                        <div class="activity-time">
+                          <span class="badge badge-info">
+                            Yesterday
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="activity-item">
+                      <div class="activity-content">
+                        <div class="activity-icon bg-accent">
+                          <i class="fas fa-graduation-cap icon-white"></i>
+                        </div>
+                        <div class="activity-details">
+                          <p class="activity-title">Grade updated: Midterm Exam</p>
+                          <p class="activity-subtitle">MATH201 - Calculus II</p>
+                        </div>
+                        <div class="activity-time">
+                          <span class="badge badge-warning">
+                            2 days ago
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="activity-item">
+                      <div class="activity-content">
+                        <div class="activity-icon bg-danger">
+                          <i class="fas fa-book-open icon-white"></i>
+                        </div>
+                        <div class="activity-details">
+                          <p class="activity-title">New course material available</p>
+                          <p class="activity-subtitle">PHYS101 - Introduction to Physics</p>
+                        </div>
+                        <div class="activity-time">
+                          <span class="badge badge-danger">
+                            3 days ago
+                          </span>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="card-footer">
+                    <div class="footer-link-container">
+                      <a href="#" class="footer-link footer-link-primary">
+                        View all activity
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Upcoming Assignments -->
+                <div class="content-card">
+                  <div class="card-header">
+                    <h3 class="card-title">
+                      Upcoming Assignments
+                    </h3>
+                  </div>
+                  <ul class="assignments-list">
+                    <li class="assignment-item">
+                      <div class="assignment-header">
+                        <div class="assignment-info">
+                          <h4 class="assignment-title">Final Project Submission</h4>
+                          <p class="assignment-course">CS301 - Data Structures and Algorithms</p>
+                        </div>
+                        <div class="assignment-due">Due in 2 days</div>
+                      </div>
+                      <div class="assignment-progress">
+                        <div class="progress-container">
+                          <div class="progress-bar bg-danger" style="width: 75%"></div>
+                        </div>
+                        <div class="progress-text">75% completed</div>
+                      </div>
+                    </li>
+                    <li class="assignment-item">
+                      <div class="assignment-header">
+                        <div class="assignment-info">
+                          <h4 class="assignment-title">Research Paper Draft</h4>
+                          <p class="assignment-course">ENG202 - Technical Writing</p>
+                        </div>
+                        <div class="assignment-due">Due in 5 days</div>
+                      </div>
+                      <div class="assignment-progress">
+                        <div class="progress-container">
+                          <div class="progress-bar bg-warning" style="width: 50%"></div>
+                        </div>
+                        <div class="progress-text">50% completed</div>
+                      </div>
+                    </li>
+                    <li class="assignment-item">
+                      <div class="assignment-header">
+                        <div class="assignment-info">
+                          <h4 class="assignment-title">Problem Set 5</h4>
+                          <p class="assignment-course">MATH201 - Calculus II</p>
+                        </div>
+                        <div class="assignment-due">Due in 1 week</div>
+                      </div>
+                      <div class="assignment-progress">
+                        <div class="progress-container">
+                          <div class="progress-bar bg-info" style="width: 25%"></div>
+                        </div>
+                        <div class="progress-text">25% completed</div>
+                      </div>
+                    </li>
+                    <li class="assignment-item">
+                      <div class="assignment-header">
+                        <div class="assignment-info">
+                          <h4 class="assignment-title">Lab Report: Forces and Motion</h4>
+                          <p class="assignment-course">PHYS101 - Introduction to Physics</p>
+                        </div>
+                        <div class="assignment-due">Due in 2 weeks</div>
+                      </div>
+                      <div class="assignment-progress">
+                        <div class="progress-container">
+                          <div class="progress-bar bg-success" style="width: 15%"></div>
+                        </div>
+                        <div class="progress-text">15% completed</div>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="card-footer">
+                    <div class="footer-link-container">
+                      <a href="#" class="footer-link footer-link-primary" data-view="assignments">
+                        View all assignments
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course Progress -->
+              <div class="content-card full-width">
+                <div class="card-header">
+                  <h3 class="card-title">
+                    Course Progress
+                  </h3>
+                </div>
+                <div class="card-body">
+                  <div class="courses-grid">
+                    <div class="course-card">
+                      <div class="course-header">
+                        <div class="course-icon bg-primary">
+                          <i class="fas fa-laptop-code icon-white"></i>
+                        </div>
+                        <div class="course-info">
+                          <h4 class="course-code">CS301</h4>
+                          <p class="course-name">Data Structures and Algorithms</p>
+                        </div>
+                      </div>
+                      <div class="course-progress">
+                        <div class="progress-header">
+                          <span>Progress</span>
+                          <span>75%</span>
+                        </div>
+                        <div class="progress-container">
+                          <div class="progress-bar bg-primary" style="width: 75%"></div>
+                        </div>
+                      </div>
+                      <div class="course-details">
+                        <div class="course-metric">
+                          <p class="metric-label">Completed</p>
+                          <p class="metric-value">9/12 modules</p>
+                        </div>
+                        <div class="course-metric">
+                          <p class="metric-label">Grade</p>
+                          <p class="metric-value">87%</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="course-card">
+                      <div class="course-header">
+                        <div class="course-icon bg-secondary">
+                          <i class="fas fa-edit icon-white"></i>
+                        </div>
+                        <div class="course-info">
+                          <h4 class="course-code">ENG202</h4>
+                          <p class="course-name">Technical Writing</p>
+                        </div>
+                      </div>
+                      <div class="course-progress">
+                        <div class="progress-header">
+                          <span>Progress</span>
+                          <span>60%</span>
+                        </div>
+                        <div class="progress-container">
+                          <div class="progress-bar bg-secondary" style="width: 60%"></div>
+                        </div>
+                      </div>
+                      <div class="course-details">
+                        <div class="course-metric">
+                          <p class="metric-label">Completed</p>
+                          <p class="metric-value">6/10 modules</p>
+                        </div>
+                        <div class="course-metric">
+                          <p class="metric-label">Grade</p>
+                          <p class="metric-value">82%</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="course-card">
+                      <div class="course-header">
+                        <div class="course-icon bg-success">
+                          <i class="fas fa-square-root-alt icon-white"></i>
+                        </div>
+                        <div class="course-info">
+                          <h4 class="course-code">MATH201</h4>
+                          <p class="course-name">Calculus II</p>
+                        </div>
+                      </div>
+                      <div class="course-progress">
+                        <div class="progress-header">
+                          <span>Progress</span>
+                          <span>80%</span>
+                        </div>
+                        <div class="progress-container">
+                          <div class="progress-bar bg-success" style="width: 80%"></div>
+                        </div>
+                      </div>
+                      <div class="course-details">
+                        <div class="course-metric">
+                          <p class="metric-label">Completed</p>
+                          <p class="metric-value">8/10 modules</p>
+                        </div>
+                        <div class="course-metric">
+                          <p class="metric-label">Grade</p>
+                          <p class="metric-value">91%</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="center-actions">
+                    <a href="#" class="btn btn-secondary">
+                      View all courses
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Teacher Dashboard View (Hidden by Default) -->
+            <div id="teacher-dashboard-view" class="view-content hidden">
+              <!-- Page Header -->
+              <div class="page-header">
+                <div class="page-title-container">
+                  <h2 class="page-title">
+                    Teacher Dashboard
+                  </h2>
+                </div>
+                <div class="page-actions">
+                  <span class="action-button-container">
+                    <button type="button" class="btn btn-secondary">
+                      <i class="fas fa-calendar-plus action-icon"></i>
+                      Schedule Class
+                    </button>
+                  </span>
+                  <span class="action-button-container">
+                    <button type="button" class="btn btn-primary">
+                      <i class="fas fa-plus action-icon"></i>
+                      New Assignment
+                    </button>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Teacher Dashboard Quick Stats -->
+              <div class="stats-grid">
+                <!-- Courses -->
+                <div class="stat-card">
+                  <div class="stat-card-body">
+                    <div class="stat-card-content">
+                      <div class="stat-icon-container bg-primary">
+                        <i class="fas fa-chalkboard icon-white"></i>
+                      </div>
+                      <div class="stat-details">
+                        <dl>
+                          <dt class="stat-label">
+                            Active Courses
+                          </dt>
+                          <dd>
+                            <div class="stat-value">
+                              4
+                            </div>
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-card-footer">
+                    <div class="stat-link-container">
+                      <a href="#" class="stat-link stat-link-primary" data-view="manage-courses">
+                        Manage courses
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Students -->
+                <div class="stat-card">
+                  <div class="stat-card-body">
+                    <div class="stat-card-content">
+                      <div class="stat-icon-container bg-secondary">
+                        <i class="fas fa-users icon-white"></i>
+                      </div>
+                      <div class="stat-details">
+                        <dl>
+                          <dt class="stat-label">
+                            Total Students
+                          </dt>
+                          <dd>
+                            <div class="stat-value">
+                              126
+                            </div>
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-card-footer">
+                    <div class="stat-link-container">
+                      <a href="#" class="stat-link stat-link-secondary" data-view="student-reports">
+                        View student reports
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Submissions to Grade -->
+                <div class="stat-card">
+                  <div class="stat-card-body">
+                    <div class="stat-card-content">
+                      <div class="stat-icon-container bg-warning">
+                        <i class="fas fa-clipboard-check icon-white"></i>
+                      </div>
+                      <div class="stat-details">
+                        <dl>
+                          <dt class="stat-label">
+                            Pending Grading
+                          </dt>
+                          <dd>
+                            <div class="stat-value">
+                              18
+                            </div>
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-card-footer">
+                    <div class="stat-link-container">
+                      <a href="#" class="stat-link stat-link-warning" data-view="grade-submissions">
+                        Grade submissions
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Class Average -->
+                <div class="stat-card">
+                  <div class="stat-card-body">
+                    <div class="stat-card-content">
+                      <div class="stat-icon-container bg-success">
+                        <i class="fas fa-chart-line icon-white"></i>
+                      </div>
+                      <div class="stat-details">
+                        <dl>
+                          <dt class="stat-label">
+                            Class Average
+                          </dt>
+                          <dd>
+                            <div class="stat-value">
+                              83%
+                            </div>
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="stat-card-footer">
+                    <div class="stat-link-container">
+                      <a href="#" class="stat-link stat-link-success" data-view="student-reports">
+                        View detailed analytics
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Course Overview -->
+              <div class="content-card full-width">
+                <div class="card-header between">
+                  <h3 class="card-title">
+                    Course Overview
+                  </h3>
+                  <div>
+                    <select class="select-input">
+                      <option>All Courses</option>
+                      <option>CS301 - Data Structures</option>
+                      <option>CS401 - Algorithms</option>
+                      <option>CS201 - Programming Fundamentals</option>
+                      <option>CS501 - Software Engineering</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="table-container">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th class="th-course">Course</th>
+                        <th>Students</th>
+                        <th>Progress</th>
+                        <th>Average Grade</th>
+                        <th>Status</th>
+                        <th class="th-actions"><span class="sr-only">Actions</span></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="course-cell">
+                            <div class="cell-icon bg-primary">
+                              <i class="fas fa-laptop-code icon-white"></i>
+                            </div>
+                            <div class="cell-info">
+                              <div class="cell-primary">CS301</div>
+                              <div class="cell-secondary">Data Structures and Algorithms</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="cell-primary">36</div>
+                          <div class="cell-secondary">4 sections</div>
+                        </td>
+                        <td>
+                          <div class="progress-mini-container">
+                            <div class="progress-mini-bar bg-primary" style="width: 75%"></div>
+                          </div>
+                          <div class="cell-secondary">75% complete</div>
+                        </td>
+                        <td>
+                          <span class="cell-primary">87%</span>
+                        </td>
+                        <td>
+                          <span class="status-badge status-active">Active</span>
+                        </td>
+                        <td class="td-actions">
+                          <a href="#" class="link-primary">View</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="course-cell">
+                            <div class="cell-icon bg-secondary">
+                              <i class="fas fa-code icon-white"></i>
+                            </div>
+                            <div class="cell-info">
+                              <div class="cell-primary">CS401</div>
+                              <div class="cell-secondary">Advanced Algorithms</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="cell-primary">28</div>
+                          <div class="cell-secondary">2 sections</div>
+                        </td>
+                        <td>
+                          <div class="progress-mini-container">
+                            <div class="progress-mini-bar bg-secondary" style="width: 50%"></div>
+                          </div>
+                          <div class="cell-secondary">50% complete</div>
+                        </td>
+                        <td>
+                          <span class="cell-primary">82%</span>
+                        </td>
+                        <td>
+                          <span class="status-badge status-active">Active</span>
+                        </td>
+                        <td class="td-actions">
+                          <a href="#" class="link-primary">View</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="course-cell">
+                            <div class="cell-icon bg-accent">
+                              <i class="fas fa-terminal icon-white"></i>
+                            </div>
+                            <div class="cell-info">
+                              <div class="cell-primary">CS201</div>
+                              <div class="cell-secondary">Programming Fundamentals</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="cell-primary">42</div>
+                          <div class="cell-secondary">3 sections</div>
+                        </td>
+                        <td>
+                          <div class="progress-mini-container">
+                            <div class="progress-mini-bar bg-accent" style="width: 80%"></div>
+                          </div>
+                          <div class="cell-secondary">80% complete</div>
+                        </td>
+                        <td>
+                          <span class="cell-primary">79%</span>
+                        </td>
+                        <td>
+                          <span class="status-badge status-active">Active</span>
+                        </td>
+                        <td class="td-actions">
+                          <a href="#" class="link-primary">View</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="course-cell">
+                            <div class="cell-icon bg-success">
+                              <i class="fas fa-project-diagram icon-white"></i>
+                            </div>
+                            <div class="cell-info">
+                              <div class="cell-primary">CS501</div>
+                              <div class="cell-secondary">Software Engineering</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="cell-primary">20</div>
+                          <div class="cell-secondary">1 section</div>
+                        </td>
+                        <td>
+                          <div class="progress-mini-container">
+                            <div class="progress-mini-bar bg-success" style="width: 65%"></div>
+                          </div>
+                          <div class="cell-secondary">65% complete</div>
+                        </td>
+                        <td>
+                          <span class="cell-primary">85%</span>
+                        </td>
+                        <td>
+                          <span class="status-badge status-active">Active</span>
+                        </td>
+                        <td class="td-actions">
+                          <a href="#" class="link-primary">View</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Recent Submissions & Announcements -->
+              <div class="content-grid">
+                <!-- Recent Submissions -->
+                <div class="content-card">
+                  <div class="card-header">
+                    <h3 class="card-title">
+                      Recent Submissions to Grade
+                    </h3>
+                  </div>
+                  <ul class="submissions-list">
+                    <li class="submission-item">
+                      <div class="submission-header">
+                        <div>
+                          <h4 class="submission-title">Jane Smith - Final Project</h4>
+                          <p class="submission-course">CS301 - Data Structures and Algorithms</p>
+                        </div>
+                        <div class="submission-time">Submitted 2 hours ago</div>
+                      </div>
+                      <div class="submission-actions">
+                        <a href="#" class="btn-small btn-primary">Grade Now</a>
+                        <a href="#" class="btn-small btn-secondary">View Submission</a>
+                      </div>
+                    </li>
+                    <li class="submission-item">
+                      <div class="submission-header">
+                        <div>
+                          <h4 class="submission-title">Mike Johnson - Research Paper</h4>
+                          <p class="submission-course">CS401 - Advanced Algorithms</p>
+                        </div>
+                        <div class="submission-time">Submitted Yesterday</div>
+                      </div>
+                      <div class="submission-actions">
+                        <a href="#" class="btn-small btn-primary">Grade Now</a>
+                        <a href="#" class="btn-small btn-secondary">View Submission</a>
+                      </div>
+                    </li>
+                    <li class="submission-item">
+                      <div class="submission-header">
+                        <div>
+                          <h4 class="submission-title">Sam Lee - Quiz 3</h4>
+                          <p class="submission-course">CS201 - Programming Fundamentals</p>
+                        </div>
+                        <div class="submission-time">Submitted 2 days ago</div>
+                      </div>
+                      <div class="submission-actions">
+                        <a href="#" class="btn-small btn-primary">Grade Now</a>
+                        <a href="#" class="btn-small btn-secondary">View Submission</a>
+                      </div>
+                    </li>
+                    <li class="submission-item">
+                      <div class="submission-header">
+                        <div>
+                          <h4 class="submission-title">Alex Chen - Project Proposal</h4>
+                          <p class="submission-course">CS501 - Software Engineering</p>
+                        </div>
+                        <div class="submission-time">Submitted 3 days ago</div>
+                      </div>
+                      <div class="submission-actions">
+                        <a href="#" class="btn-small btn-primary">Grade Now</a>
+                        <a href="#" class="btn-small btn-secondary">View Submission</a>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="card-footer">
+                    <div class="footer-link-container">
+                      <a href="#" class="footer-link footer-link-primary" data-view="grade-submissions">
+                        View all submissions
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- My Announcements -->
+                <div class="content-card">
+                  <div class="card-header between">
+                    <h3 class="card-title">
+                      Recent Announcements
+                    </h3>
+                    <button type="button" class="btn-small btn-primary">
+                      <i class="fas fa-plus"></i> New
+                    </button>
+                  </div>
+                  <ul class="announcements-list">
+                    <li class="announcement-item">
+                      <div>
+                        <h4 class="announcement-title">Final Exam Details</h4>
+                        <p class="announcement-meta">Posted 2 days ago · CS301</p>
+                        <p class="announcement-content">The final exam will be held on December 15th from 9:00 AM to 12:00 PM in Room 301...</p>
+                      </div>
+                      <div class="announcement-actions">
+                        <a href="#" class="btn-mini btn-secondary">Edit</a>
+                        <a href="#" class="btn-mini btn-secondary">Delete</a>
+                      </div>
+                    </li>
+                    <li class="announcement-item">
+                      <div>
+                        <h4 class="announcement-title">Office Hours Cancelled</h4>
+                        <p class="announcement-meta">Posted 3 days ago · CS401</p>
+                        <p class="announcement-content">My office hours for this Friday (Dec 10) are cancelled due to a department meeting...</p>
+                      </div>
+                      <div class="announcement-actions">
+                        <a href="#" class="btn-mini btn-secondary">Edit</a>
+                        <a href="#" class="btn-mini btn-secondary">Delete</a>
+                      </div>
+                    </li>
+                    <li class="announcement-item">
+                      <div>
+                        <h4 class="announcement-title">Project Deadline Extension</h4>
+                        <p class="announcement-meta">Posted 5 days ago · CS501</p>
+                        <p class="announcement-content">Due to multiple requests, the final project deadline has been extended to December 20th...</p>
+                      </div>
+                      <div class="announcement-actions">
+                        <a href="#" class="btn-mini btn-secondary">Edit</a>
+                        <a href="#" class="btn-mini btn-secondary">Delete</a>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="card-footer">
+                    <div class="footer-link-container">
+                      <a href="#" class="footer-link footer-link-primary" data-view="announcements">
+                        Manage all announcements
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="/src/js/main.js" type="module"></script>
+  </body>
+</html>
