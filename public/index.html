@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saksham Portal</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="portal-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">Saksham</h1>
+                <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="role-selector">
+                <label class="switch">
+                    <input type="checkbox" id="roleToggle">
+                    <span class="slider round"></span>
+                </label>
+                <span class="role-label" id="roleLabel">Student View</span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="index.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="pages/courses.html"><i class="fas fa-book"></i> Courses</a></li>
+                    <li><a href="pages/assignments.html"><i class="fas fa-tasks"></i> Assignments</a></li>
+                    <li><a href="pages/grades.html"><i class="fas fa-chart-bar"></i> Grades</a></li>
+                    <li><a href="pages/calendar.html"><i class="fas fa-calendar"></i> Calendar</a></li>
+                    <li><a href="pages/resources.html"><i class="fas fa-folder"></i> Resources</a></li>
+                    <li><a href="pages/messages.html"><i class="fas fa-envelope"></i> Messages</a></li>
+                    <li><a href="pages/profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="user-menu">
+                    <div class="notifications">
+                        <button><i class="fas fa-bell"></i><span class="badge">3</span></button>
+                    </div>
+                    
+                    <div class="user-profile" id="userProfileMenu">
+                        <img src="assets/images/default-avatar.png" alt="User Avatar">
+                        <span>Jane Doe</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    
+                    <div class="dropdown-menu" id="userDropdown">
+                        <ul>
+                            <li><a href="pages/profile.html"><i class="fas fa-user"></i> View Profile</a></li>
+                            <li><a href="pages/settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <div class="page-header">
+                    <h1>Student Dashboard</h1>
+                    <p>Welcome back, Jane! Here's an overview of your academic progress.</p>
+                </div>
+                
+                <!-- Stats Cards Row -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #4CAF50;">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Enrolled Courses</h3>
+                            <p class="stat-value">8</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #2196F3;">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Pending Assignments</h3>
+                            <p class="stat-value">5</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #FF9800;">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Average Grade</h3>
+                            <p class="stat-value">87%</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background-color: #9C27B0;">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Attendance</h3>
+                            <p class="stat-value">92%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content Rows -->
+                <div class="content-row">
+                    <!-- Upcoming Assignments -->
+                    <div class="card upcoming-assignments">
+                        <div class="card-header">
+                            <h2>Upcoming Assignments</h2>
+                            <a href="pages/assignments.html" class="view-all">View All</a>
+                        </div>
+                        <div class="card-content">
+                            <ul class="assignment-list">
+                                <li>
+                                    <div class="assignment-info">
+                                        <h3>Mathematics Project</h3>
+                                        <p>Calculus II - Due Tomorrow</p>
+                                    </div>
+                                    <div class="assignment-status urgent">
+                                        <span>Urgent</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="assignment-info">
+                                        <h3>Literature Analysis Essay</h3>
+                                        <p>English Literature - Due in 3 days</p>
+                                    </div>
+                                    <div class="assignment-status pending">
+                                        <span>Pending</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="assignment-info">
+                                        <h3>Physics Lab Report</h3>
+                                        <p>Physics 101 - Due in 5 days</p>
+                                    </div>
+                                    <div class="assignment-status pending">
+                                        <span>Pending</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="assignment-info">
+                                        <h3>Group Presentation</h3>
+                                        <p>Business Management - Due in 1 week</p>
+                                    </div>
+                                    <div class="assignment-status in-progress">
+                                        <span>In Progress</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Course Progress -->
+                    <div class="card course-progress">
+                        <div class="card-header">
+                            <h2>Course Progress</h2>
+                            <a href="pages/courses.html" class="view-all">View All</a>
+                        </div>
+                        <div class="card-content">
+                            <div class="progress-item">
+                                <div class="course-info">
+                                    <h3>Calculus II</h3>
+                                    <p>Mathematics Department</p>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 85%;" data-value="85%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-item">
+                                <div class="course-info">
+                                    <h3>English Literature</h3>
+                                    <p>Humanities Department</p>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 70%;" data-value="70%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-item">
+                                <div class="course-info">
+                                    <h3>Physics 101</h3>
+                                    <p>Science Department</p>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 60%;" data-value="60%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-item">
+                                <div class="course-info">
+                                    <h3>Business Management</h3>
+                                    <p>Commerce Department</p>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: 45%;" data-value="45%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="content-row">
+                    <!-- Recent Announcements -->
+                    <div class="card announcements">
+                        <div class="card-header">
+                            <h2>Recent Announcements</h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="announcement-item">
+                                <div class="announcement-header">
+                                    <h3>College Fest Coming Soon</h3>
+                                    <span class="date">2 hours ago</span>
+                                </div>
+                                <p>Annual college fest is scheduled for next month. Registration for various events will begin next week.</p>
+                            </div>
+                            
+                            <div class="announcement-item">
+                                <div class="announcement-header">
+                                    <h3>Library Hours Extended</h3>
+                                    <span class="date">1 day ago</span>
+                                </div>
+                                <p>The college library will remain open until 10 PM during the exam period starting from next week.</p>
+                            </div>
+                            
+                            <div class="announcement-item">
+                                <div class="announcement-header">
+                                    <h3>New Research Opportunity</h3>
+                                    <span class="date">2 days ago</span>
+                                </div>
+                                <p>Applications are open for student research assistants in the Physics department. Interested students can apply online.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Activity -->
+                    <div class="card recent-activity">
+                        <div class="card-header">
+                            <h2>Recent Activity</h2>
+                        </div>
+                        <div class="card-content">
+                            <ul class="activity-list">
+                                <li>
+                                    <div class="activity-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="activity-info">
+                                        <p><strong>Assignment Submitted:</strong> Computer Science Project</p>
+                                        <span class="time">Today, 9:30 AM</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="activity-icon"><i class="fas fa-file-alt"></i></div>
+                                    <div class="activity-info">
+                                        <p><strong>New Grade Posted:</strong> Mathematics Quiz #3</p>
+                                        <span class="time">Yesterday, 3:15 PM</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="activity-icon"><i class="fas fa-comment"></i></div>
+                                    <div class="activity-info">
+                                        <p><strong>New Comment:</strong> From Prof. Johnson on your essay</p>
+                                        <span class="time">Yesterday, 11:42 AM</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="activity-icon"><i class="fas fa-book"></i></div>
+                                    <div class="activity-info">
+                                        <p><strong>Course Material Updated:</strong> Physics 101</p>
+                                        <span class="time">2 days ago, 10:30 AM</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="activity-icon"><i class="fas fa-calendar-plus"></i></div>
+                                    <div class="activity-info">
+                                        <p><strong>Event Added to Calendar:</strong> Department Meeting</p>
+                                        <span class="time">3 days ago, 2:00 PM</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Teacher Dashboard (Hidden by default) -->
+                <div class="teacher-dashboard hidden" id="teacherDashboard">
+                    <div class="page-header">
+                        <h1>Teacher Dashboard</h1>
+                        <p>Welcome back, Professor Jane! Here's an overview of your classes and student progress.</p>
+                    </div>
+                    
+                    <!-- Teacher Stats Cards Row -->
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background-color: #4CAF50;">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Active Courses</h3>
+                                <p class="stat-value">4</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background-color: #2196F3;">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Total Students</h3>
+                                <p class="stat-value">128</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background-color: #FF9800;">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Pending Grading</h3>
+                                <p class="stat-value">23</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background-color: #9C27B0;">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Messages</h3>
+                                <p class="stat-value">15</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Teacher Content -->
+                    <div class="content-row">
+                        <!-- Class Performance -->
+                        <div class="card class-performance">
+                            <div class="card-header">
+                                <h2>Class Performance</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="progress-item">
+                                    <div class="course-info">
+                                        <h3>Advanced Mathematics</h3>
+                                        <p>Average: 78%</p>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" style="width: 78%;" data-value="78%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="progress-item">
+                                    <div class="course-info">
+                                        <h3>Computer Science 101</h3>
+                                        <p>Average: 82%</p>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" style="width: 82%;" data-value="82%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="progress-item">
+                                    <div class="course-info">
+                                        <h3>Data Structures</h3>
+                                        <p>Average: 75%</p>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" style="width: 75%;" data-value="75%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="progress-item">
+                                    <div class="course-info">
+                                        <h3>Algorithm Design</h3>
+                                        <p>Average: 68%</p>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" style="width: 68%;" data-value="68%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Submissions -->
+                        <div class="card recent-submissions">
+                            <div class="card-header">
+                                <h2>Recent Submissions</h2>
+                                <a href="pages/grading.html" class="view-all">View All</a>
+                            </div>
+                            <div class="card-content">
+                                <ul class="submissions-list">
+                                    <li>
+                                        <div class="submission-info">
+                                            <h3>John Smith</h3>
+                                            <p>Algorithm Design - Final Project</p>
+                                        </div>
+                                        <div class="submission-action">
+                                            <a href="pages/grade-assignment.html" class="btn-grade">Grade</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="submission-info">
+                                            <h3>Emily Johnson</h3>
+                                            <p>Data Structures - Assignment #5</p>
+                                        </div>
+                                        <div class="submission-action">
+                                            <a href="pages/grade-assignment.html" class="btn-grade">Grade</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="submission-info">
+                                            <h3>Michael Brown</h3>
+                                            <p>Computer Science 101 - Lab Report</p>
+                                        </div>
+                                        <div class="submission-action">
+                                            <a href="pages/grade-assignment.html" class="btn-grade">Grade</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="submission-info">
+                                            <h3>Sarah Davis</h3>
+                                            <p>Advanced Mathematics - Mid-term Exam</p>
+                                        </div>
+                                        <div class="submission-action">
+                                            <a href="pages/grade-assignment.html" class="btn-grade">Grade</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-row">
+                        <!-- Upcoming Classes -->
+                        <div class="card upcoming-classes">
+                            <div class="card-header">
+                                <h2>Upcoming Classes</h2>
+                                <a href="pages/schedule.html" class="view-all">Full Schedule</a>
+                            </div>
+                            <div class="card-content">
+                                <div class="class-item">
+                                    <div class="class-time">
+                                        <h3>8:30 AM</h3>
+                                        <p>Today</p>
+                                    </div>
+                                    <div class="class-details">
+                                        <h3>Computer Science 101</h3>
+                                        <p>Room 302, Building A</p>
+                                    </div>
+                                    <div class="class-duration">
+                                        <span>90 min</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="class-item">
+                                    <div class="class-time">
+                                        <h3>11:00 AM</h3>
+                                        <p>Today</p>
+                                    </div>
+                                    <div class="class-details">
+                                        <h3>Data Structures</h3>
+                                        <p>Room 405, Computer Lab</p>
+                                    </div>
+                                    <div class="class-duration">
+                                        <span>120 min</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="class-item">
+                                    <div class="class-time">
+                                        <h3>2:30 PM</h3>
+                                        <p>Tomorrow</p>
+                                    </div>
+                                    <div class="class-details">
+                                        <h3>Advanced Mathematics</h3>
+                                        <p>Room 201, Building B</p>
+                                    </div>
+                                    <div class="class-duration">
+                                        <span>90 min</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="class-item">
+                                    <div class="class-time">
+                                        <h3>9:30 AM</h3>
+                                        <p>May 5, 2025</p>
+                                    </div>
+                                    <div class="class-details">
+                                        <h3>Algorithm Design</h3>
+                                        <p>Room 405, Computer Lab</p>
+                                    </div>
+                                    <div class="class-duration">
+                                        <span>120 min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Items -->
+                        <div class="card action-items">
+                            <div class="card-header">
+                                <h2>Action Items</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="action-item">
+                                    <div class="action-icon"><i class="fas fa-exclamation-circle"></i></div>
+                                    <div class="action-info">
+                                        <h3>Grade Pending Assignments</h3>
+                                        <p>23 assignments awaiting your feedback</p>
+                                    </div>
+                                    <a href="pages/grading.html" class="btn-action">Review</a>
+                                </div>
+                                
+                                <div class="action-item">
+                                    <div class="action-icon"><i class="fas fa-bell"></i></div>
+                                    <div class="action-info">
+                                        <h3>Final Exams Schedule</h3>
+                                        <p>Finalize and publish your exam schedule</p>
+                                    </div>
+                                    <a href="pages/schedule.html" class="btn-action">Update</a>
+                                </div>
+                                
+                                <div class="action-item">
+                                    <div class="action-icon"><i class="fas fa-book-open"></i></div>
+                                    <div class="action-info">
+                                        <h3>Update Course Materials</h3>
+                                        <p>Computer Science 101 materials need updates</p>
+                                    </div>
+                                    <a href="pages/course-edit.html" class="btn-action">Edit</a>
+                                </div>
+                                
+                                <div class="action-item">
+                                    <div class="action-icon"><i class="fas fa-envelope"></i></div>
+                                    <div class="action-info">
+                                        <h3>Respond to Student Messages</h3>
+                                        <p>15 unread messages from students</p>
+                                    </div>
+                                    <a href="pages/messages.html" class="btn-action">Respond</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Default Avatar Image (Base64 encoded to avoid external dependencies) -->
+    <script>
+        // Create a default avatar if image is not available
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatar = document.querySelector('.user-profile img');
+            avatar.onerror = function() {
+                this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij48Y2lyY2xlIGN4PSIxMjgiIGN5PSIxMjgiIHI9IjEyMCIgZmlsbD0iI2U5ZWNlZiIvPjxjaXJjbGUgY3g9IjEyOCIgY3k9IjExMCIgcj0iNDAiIGZpbGw9IiNhYWIyYmQiLz48cGF0aCBkPSJNMjEzLjIsMjA4LjdjLTguNCwyMC0yOS45LDM4LTg1LjIsMzgtNTUuMywwLTc2LjgtMTgtODUuMi0zOHM4LjktNDkuNyw4NS4yLTQ5LjdDMjA0LjMsMTU5LDIyMS42LDE4OC43LDIxMy4yLDIwOC43WiIgZmlsbD0iI2FhYjJiZCIvPjwvc3ZnPg==';
+            };
+        });
+    </script>
+
+    <!-- Main JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/views.js"></script>
+</body>
+</html>

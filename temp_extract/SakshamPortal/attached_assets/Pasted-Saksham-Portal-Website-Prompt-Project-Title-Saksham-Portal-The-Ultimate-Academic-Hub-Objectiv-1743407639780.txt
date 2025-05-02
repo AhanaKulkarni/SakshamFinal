@@ -1,0 +1,61 @@
+Saksham Portal Website Prompt
+Project Title: Saksham Portal – The Ultimate Academic Hub 
+
+Objective: 
+A visually stunning, intuitive, and feature-rich academic portal for TCET engineering students. It centralizes resource books, curated YouTube playlists, online subject resources, and a personal academic tracker, all accessible via tcetmumbai.in login.
+
+🖌️ Aesthetic & Branding:
+Colors: Orange & White for a warm, modern, and motivational feel. 
+
+UI Style: Minimalist yet immersive, featuring soft gradients, interactive elements, and student-friendly navigation.
+
+Typography: Clean, professional, and readable fonts like Poppins or Montserrat.
+
+📚 Core Features:
+📖 Study Resource Hub (Group-wise)
+Students can access:
+
+E-books & PDFs for each subject.
+
+Curated YouTube Playlists (handpicked for conceptual clarity).
+
+External Online Resources (interactive simulations, problem sets, etc.).
+
+Personalized Academic Tracker (Aesthetic AF ✨) 
+Subjects categorized by groups:
+
+
+
+Group 1: Physics, BEE, Math 1, EGPC, EGD, AAD, PC Assembly.
+
+Group 2: EM, Math 2, IIKS, Chemistry, PPS, AAD, WMP.
+
+Visual Progress Dashboard
+
+Practical Completion Tracker (10 practicals per subject).
+
+Math Tutorial Tracker (10 tutorials).
+
+Customizable to-do lists for pending tasks.
+
+Gamified progress bar with milestones (e.g., "50% Complete! Keep Going! 🎯").
+
+Exam Performance Analytics
+
+Marks Input Section (per subject).
+
+Auto-Generated Percentage & Grade Calculation.
+
+Performance Graphs & Trends (line/bar charts).
+
+Comparison with Past Performance (improvement insights).
+
+Secure Login & User Profiles 
+Only accessible via @tcetmumbai.in email IDs.
+
+Personalized dashboards with student-specific data.
+Additional Enhancements: 
+Interactive UI Animations (smooth transitions, subtle hover effects).
+Dark Mode Option for late-night study sessions. 
+Mobile-Optimized for easy access on the go. 
+AI-Powered Recommendations for additional study materials based on weak topics.
